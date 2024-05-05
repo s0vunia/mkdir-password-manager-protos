@@ -1,0 +1,66 @@
+syntax = "proto3";
+
+package auth;
+option go_package = "github.com/s0vunia/password-manager/pkg/protos/gen/go/manager";
+
+message UUID {
+  string value = 1;
+}
+
+enum ItemType {
+  Login = 0;
+}
+
+service Manager {
+  rpc AddItem (AddItemRequest) returns (AddItemResponse);
+  rpc GetItem (GetItemRequest) returns (GetItemResponse);
+  rpc GetItems (GetItemsRequest) returns (GetItemsResponse);
+  rpc GetLoginItem (GetLoginItemRequest) returns (GetLoginItemResponse);
+  rpc GetLoginItems (GetLoginItemsRequest) returns (GetLoginItemsResponse);
+}
+
+
+message AddItemRequest {
+  string name = 1;
+  UUID folder_id = 2;
+  bool is_favorite = 3;
+}
+
+message AddItemResponse {
+  int64 id = 1;
+}
+
+message GetItemRequest {
+  UUID id = 1;
+}
+
+message GetItemResponse {
+  string name = 1;
+  ItemType type = 2;
+  UUID folder_id = 3;
+  bool is_favorite = 4;
+}
+
+message GetLoginItemRequest {
+  GetItemRequest item = 1;
+}
+
+message GetLoginItemResponse {
+  GetItemResponse item = 1;
+  string login = 2;
+  string encrypt_password = 3;
+}
+
+message GetItemsRequest {
+}
+
+message GetItemsResponse {
+  repeated GetItemResponse list_of_items = 1;
+}
+
+message GetLoginItemsRequest {
+}
+
+message GetLoginItemsResponse {
+  repeated GetLoginItemResponse list_of_items = 1;
+}
