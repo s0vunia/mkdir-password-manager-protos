@@ -12,7 +12,7 @@ enum ItemType {
 }
 
 service Manager {
-  rpc AddItem (AddItemRequest) returns (AddItemResponse);
+  rpc CreateLoginItem (CreateLoginItemRequest) returns (CreateLoginItemResponse);
   rpc GetItem (GetItemRequest) returns (GetItemResponse);
   rpc GetItems (GetItemsRequest) returns (GetItemsResponse);
   rpc GetLoginItem (GetLoginItemRequest) returns (GetLoginItemResponse);
@@ -20,14 +20,25 @@ service Manager {
 }
 
 
-message AddItemRequest {
+message CreateItemRequest {
   string name = 1;
   UUID folder_id = 2;
-  bool is_favorite = 3;
+  UUID user_id = 3;
+  bool is_favorite = 4;
 }
 
-message AddItemResponse {
+message CreateItemResponse {
   int64 id = 1;
+}
+
+message CreateLoginItemRequest {
+  CreateItemRequest item = 1;
+  string login = 2;
+  string encrypt_password = 3;
+}
+
+message CreateLoginItemResponse {
+  CreateItemResponse item = 1;
 }
 
 message GetItemRequest {
