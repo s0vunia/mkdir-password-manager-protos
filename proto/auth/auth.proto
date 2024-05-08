@@ -2,6 +2,10 @@ syntax = "proto3";
 
 package auth;
 option go_package = "github.com/s0vunia/password-manager/pkg/protos/gen/go/auth";
+
+message UUID {
+  string value = 1;
+}
 // Auth is service for managing permissions and roles.
 service Auth {
   // Register registers a new user.
@@ -16,7 +20,7 @@ message RegisterRequest {
 }
 
 message RegisterResponse {
-  int64 user_id = 1; // User ID of the registered user.
+  UUID user_id = 1; // User ID of the registered user.
 }
 
 message LoginRequest {
