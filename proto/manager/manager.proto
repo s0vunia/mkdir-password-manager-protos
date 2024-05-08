@@ -22,9 +22,10 @@ service Manager {
 
 message CreateItemRequest {
   string name = 1;
-  UUID folder_id = 2;
-  UUID user_id = 3;
-  bool is_favorite = 4;
+  ItemType type = 2;
+  UUID folder_id = 3;
+  UUID user_id = 4;
+  bool is_favorite = 5;
 }
 
 message CreateItemResponse {
@@ -33,7 +34,7 @@ message CreateItemResponse {
 
 message CreateLoginItemRequest {
   CreateItemRequest item = 1;
-  CreateItemResponse item_id = 2;
+  UUID item_id = 2;
   string login = 3;
   string encrypt_password = 4;
 }
@@ -50,7 +51,8 @@ message GetItemResponse {
   string name = 1;
   ItemType type = 2;
   UUID folder_id = 3;
-  bool is_favorite = 4;
+  UUID user_id = 4;
+  bool is_favorite = 5;
 }
 
 message GetLoginItemRequest {
