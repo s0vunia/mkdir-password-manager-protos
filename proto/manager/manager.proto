@@ -28,13 +28,14 @@ message CreateItemRequest {
 }
 
 message CreateItemResponse {
-  int64 id = 1;
+  UUID id = 1;
 }
 
 message CreateLoginItemRequest {
   CreateItemRequest item = 1;
-  string login = 2;
-  string encrypt_password = 3;
+  CreateItemResponse item_id = 2;
+  string login = 3;
+  string encrypt_password = 4;
 }
 
 message CreateLoginItemResponse {
