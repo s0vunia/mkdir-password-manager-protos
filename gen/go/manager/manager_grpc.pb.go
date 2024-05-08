@@ -22,7 +22,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ManagerClient interface {
-	AddItem(ctx context.Context, in *AddItemRequest, opts ...grpc.CallOption) (*AddItemResponse, error)
+	CreateLoginItem(ctx context.Context, in *CreateLoginItemRequest, opts ...grpc.CallOption) (*CreateLoginItemResponse, error)
 	GetItem(ctx context.Context, in *GetItemRequest, opts ...grpc.CallOption) (*GetItemResponse, error)
 	GetItems(ctx context.Context, in *GetItemsRequest, opts ...grpc.CallOption) (*GetItemsResponse, error)
 	GetLoginItem(ctx context.Context, in *GetLoginItemRequest, opts ...grpc.CallOption) (*GetLoginItemResponse, error)
@@ -37,9 +37,9 @@ func NewManagerClient(cc grpc.ClientConnInterface) ManagerClient {
 	return &managerClient{cc}
 }
 
-func (c *managerClient) AddItem(ctx context.Context, in *AddItemRequest, opts ...grpc.CallOption) (*AddItemResponse, error) {
-	out := new(AddItemResponse)
-	err := c.cc.Invoke(ctx, "/auth.Manager/AddItem", in, out, opts...)
+func (c *managerClient) CreateLoginItem(ctx context.Context, in *CreateLoginItemRequest, opts ...grpc.CallOption) (*CreateLoginItemResponse, error) {
+	out := new(CreateLoginItemResponse)
+	err := c.cc.Invoke(ctx, "/auth.Manager/CreateLoginItem", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -86,7 +86,7 @@ func (c *managerClient) GetLoginItems(ctx context.Context, in *GetLoginItemsRequ
 // All implementations must embed UnimplementedManagerServer
 // for forward compatibility
 type ManagerServer interface {
-	AddItem(context.Context, *AddItemRequest) (*AddItemResponse, error)
+	CreateLoginItem(context.Context, *CreateLoginItemRequest) (*CreateLoginItemResponse, error)
 	GetItem(context.Context, *GetItemRequest) (*GetItemResponse, error)
 	GetItems(context.Context, *GetItemsRequest) (*GetItemsResponse, error)
 	GetLoginItem(context.Context, *GetLoginItemRequest) (*GetLoginItemResponse, error)
@@ -98,8 +98,8 @@ type ManagerServer interface {
 type UnimplementedManagerServer struct {
 }
 
-func (UnimplementedManagerServer) AddItem(context.Context, *AddItemRequest) (*AddItemResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AddItem not implemented")
+func (UnimplementedManagerServer) CreateLoginItem(context.Context, *CreateLoginItemRequest) (*CreateLoginItemResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateLoginItem not implemented")
 }
 func (UnimplementedManagerServer) GetItem(context.Context, *GetItemRequest) (*GetItemResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetItem not implemented")
@@ -126,20 +126,20 @@ func RegisterManagerServer(s grpc.ServiceRegistrar, srv ManagerServer) {
 	s.RegisterService(&Manager_ServiceDesc, srv)
 }
 
-func _Manager_AddItem_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AddItemRequest)
+func _Manager_CreateLoginItem_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateLoginItemRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ManagerServer).AddItem(ctx, in)
+		return srv.(ManagerServer).CreateLoginItem(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/auth.Manager/AddItem",
+		FullMethod: "/auth.Manager/CreateLoginItem",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ManagerServer).AddItem(ctx, req.(*AddItemRequest))
+		return srv.(ManagerServer).CreateLoginItem(ctx, req.(*CreateLoginItemRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -224,8 +224,8 @@ var Manager_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*ManagerServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "AddItem",
-			Handler:    _Manager_AddItem_Handler,
+			MethodName: "CreateLoginItem",
+			Handler:    _Manager_CreateLoginItem_Handler,
 		},
 		{
 			MethodName: "GetItem",
