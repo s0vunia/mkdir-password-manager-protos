@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package auth;
+package manager;
 option go_package = "github.com/s0vunia/password-manager/pkg/protos/gen/go/manager";
 
 message UUID {

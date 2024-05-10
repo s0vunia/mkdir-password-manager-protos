@@ -39,7 +39,7 @@ func NewManagerClient(cc grpc.ClientConnInterface) ManagerClient {
 
 func (c *managerClient) CreateLoginItem(ctx context.Context, in *CreateLoginItemRequest, opts ...grpc.CallOption) (*CreateLoginItemResponse, error) {
 	out := new(CreateLoginItemResponse)
-	err := c.cc.Invoke(ctx, "/auth.Manager/CreateLoginItem", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/manager.Manager/CreateLoginItem", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -48,7 +48,7 @@ func (c *managerClient) CreateLoginItem(ctx context.Context, in *CreateLoginItem
 
 func (c *managerClient) GetItem(ctx context.Context, in *GetItemRequest, opts ...grpc.CallOption) (*GetItemResponse, error) {
 	out := new(GetItemResponse)
-	err := c.cc.Invoke(ctx, "/auth.Manager/GetItem", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/manager.Manager/GetItem", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -57,7 +57,7 @@ func (c *managerClient) GetItem(ctx context.Context, in *GetItemRequest, opts ..
 
 func (c *managerClient) GetItems(ctx context.Context, in *GetItemsRequest, opts ...grpc.CallOption) (*GetItemsResponse, error) {
 	out := new(GetItemsResponse)
-	err := c.cc.Invoke(ctx, "/auth.Manager/GetItems", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/manager.Manager/GetItems", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -66,7 +66,7 @@ func (c *managerClient) GetItems(ctx context.Context, in *GetItemsRequest, opts 
 
 func (c *managerClient) GetLoginItem(ctx context.Context, in *GetLoginItemRequest, opts ...grpc.CallOption) (*GetLoginItemResponse, error) {
 	out := new(GetLoginItemResponse)
-	err := c.cc.Invoke(ctx, "/auth.Manager/GetLoginItem", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/manager.Manager/GetLoginItem", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -75,7 +75,7 @@ func (c *managerClient) GetLoginItem(ctx context.Context, in *GetLoginItemReques
 
 func (c *managerClient) GetLoginItems(ctx context.Context, in *GetLoginItemsRequest, opts ...grpc.CallOption) (*GetLoginItemsResponse, error) {
 	out := new(GetLoginItemsResponse)
-	err := c.cc.Invoke(ctx, "/auth.Manager/GetLoginItems", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/manager.Manager/GetLoginItems", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -136,7 +136,7 @@ func _Manager_CreateLoginItem_Handler(srv interface{}, ctx context.Context, dec 
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/auth.Manager/CreateLoginItem",
+		FullMethod: "/manager.Manager/CreateLoginItem",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ManagerServer).CreateLoginItem(ctx, req.(*CreateLoginItemRequest))
@@ -154,7 +154,7 @@ func _Manager_GetItem_Handler(srv interface{}, ctx context.Context, dec func(int
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/auth.Manager/GetItem",
+		FullMethod: "/manager.Manager/GetItem",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ManagerServer).GetItem(ctx, req.(*GetItemRequest))
@@ -172,7 +172,7 @@ func _Manager_GetItems_Handler(srv interface{}, ctx context.Context, dec func(in
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/auth.Manager/GetItems",
+		FullMethod: "/manager.Manager/GetItems",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ManagerServer).GetItems(ctx, req.(*GetItemsRequest))
@@ -190,7 +190,7 @@ func _Manager_GetLoginItem_Handler(srv interface{}, ctx context.Context, dec fun
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/auth.Manager/GetLoginItem",
+		FullMethod: "/manager.Manager/GetLoginItem",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ManagerServer).GetLoginItem(ctx, req.(*GetLoginItemRequest))
@@ -208,7 +208,7 @@ func _Manager_GetLoginItems_Handler(srv interface{}, ctx context.Context, dec fu
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/auth.Manager/GetLoginItems",
+		FullMethod: "/manager.Manager/GetLoginItems",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ManagerServer).GetLoginItems(ctx, req.(*GetLoginItemsRequest))
@@ -220,7 +220,7 @@ func _Manager_GetLoginItems_Handler(srv interface{}, ctx context.Context, dec fu
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Manager_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "auth.Manager",
+	ServiceName: "manager.Manager",
 	HandlerType: (*ManagerServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
