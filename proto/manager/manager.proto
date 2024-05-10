@@ -34,7 +34,6 @@ message CreateItemResponse {
 
 message CreateLoginItemRequest {
   CreateItemRequest item = 1;
-  UUID item_id = 2;
   string login = 3;
   string encrypt_password = 4;
 }
@@ -45,6 +44,7 @@ message CreateLoginItemResponse {
 
 message GetItemRequest {
   UUID id = 1;
+  UUID user_id = 2;
 }
 
 message GetItemResponse {
@@ -66,6 +66,7 @@ message GetLoginItemResponse {
 }
 
 message GetItemsRequest {
+  UUID user_id = 1;
 }
 
 message GetItemsResponse {
@@ -73,6 +74,7 @@ message GetItemsResponse {
 }
 
 message GetLoginItemsRequest {
+  GetItemsRequest items = 1;
 }
 
 message GetLoginItemsResponse {
