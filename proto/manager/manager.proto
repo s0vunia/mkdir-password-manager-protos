@@ -62,9 +62,10 @@ message GetLoginItemRequest {
 }
 
 message GetLoginItemResponse {
-  GetItemResponse item = 1;
-  string login = 2;
-  string encrypt_password = 3;
+  UUID id = 1;
+  GetItemResponse item = 2;
+  string login = 3;
+  string encrypt_password = 4;
 }
 
 message GetItemsRequest {
