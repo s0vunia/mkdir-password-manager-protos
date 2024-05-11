@@ -27,6 +27,7 @@ type ManagerClient interface {
 	GetItems(ctx context.Context, in *GetItemsRequest, opts ...grpc.CallOption) (*GetItemsResponse, error)
 	GetLoginItem(ctx context.Context, in *GetLoginItemRequest, opts ...grpc.CallOption) (*GetLoginItemResponse, error)
 	GetLoginItems(ctx context.Context, in *GetLoginItemsRequest, opts ...grpc.CallOption) (*GetLoginItemsResponse, error)
+	GetItemsByFolder(ctx context.Context, in *GetItemsByFolderRequest, opts ...grpc.CallOption) (*GetItemsByFolderRequest, error)
 }
 
 type managerClient struct {
@@ -82,6 +83,15 @@ func (c *managerClient) GetLoginItems(ctx context.Context, in *GetLoginItemsRequ
 	return out, nil
 }
 
+func (c *managerClient) GetItemsByFolder(ctx context.Context, in *GetItemsByFolderRequest, opts ...grpc.CallOption) (*GetItemsByFolderRequest, error) {
+	out := new(GetItemsByFolderRequest)
+	err := c.cc.Invoke(ctx, "/manager.Manager/GetItemsByFolder", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ManagerServer is the server API for Manager service.
 // All implementations must embed UnimplementedManagerServer
 // for forward compatibility
@@ -91,6 +101,7 @@ type ManagerServer interface {
 	GetItems(context.Context, *GetItemsRequest) (*GetItemsResponse, error)
 	GetLoginItem(context.Context, *GetLoginItemRequest) (*GetLoginItemResponse, error)
 	GetLoginItems(context.Context, *GetLoginItemsRequest) (*GetLoginItemsResponse, error)
+	GetItemsByFolder(context.Context, *GetItemsByFolderRequest) (*GetItemsByFolderRequest, error)
 	mustEmbedUnimplementedManagerServer()
 }
 
@@ -112,6 +123,9 @@ func (UnimplementedManagerServer) GetLoginItem(context.Context, *GetLoginItemReq
 }
 func (UnimplementedManagerServer) GetLoginItems(context.Context, *GetLoginItemsRequest) (*GetLoginItemsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetLoginItems not implemented")
+}
+func (UnimplementedManagerServer) GetItemsByFolder(context.Context, *GetItemsByFolderRequest) (*GetItemsByFolderRequest, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetItemsByFolder not implemented")
 }
 func (UnimplementedManagerServer) mustEmbedUnimplementedManagerServer() {}
 
@@ -216,6 +230,24 @@ func _Manager_GetLoginItems_Handler(srv interface{}, ctx context.Context, dec fu
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Manager_GetItemsByFolder_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetItemsByFolderRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ManagerServer).GetItemsByFolder(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/manager.Manager/GetItemsByFolder",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ManagerServer).GetItemsByFolder(ctx, req.(*GetItemsByFolderRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Manager_ServiceDesc is the grpc.ServiceDesc for Manager service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -242,6 +274,10 @@ var Manager_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetLoginItems",
 			Handler:    _Manager_GetLoginItems_Handler,
+		},
+		{
+			MethodName: "GetItemsByFolder",
+			Handler:    _Manager_GetItemsByFolder_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

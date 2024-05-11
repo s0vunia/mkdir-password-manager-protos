@@ -17,6 +17,7 @@ service Manager {
   rpc GetItems (GetItemsRequest) returns (GetItemsResponse);
   rpc GetLoginItem (GetLoginItemRequest) returns (GetLoginItemResponse);
   rpc GetLoginItems (GetLoginItemsRequest) returns (GetLoginItemsResponse);
+  rpc GetItemsByFolder (GetItemsByFolderRequest) returns (GetItemsByFolderRequest);
 }
 
 
@@ -48,11 +49,12 @@ message GetItemRequest {
 }
 
 message GetItemResponse {
-  string name = 1;
-  ItemType type = 2;
-  UUID folder_id = 3;
-  UUID user_id = 4;
-  bool is_favorite = 5;
+  UUID id = 1;
+  string name = 2;
+  ItemType type = 4;
+  UUID folder_id = 5;
+  UUID user_id = 6;
+  bool is_favorite = 7;
 }
 
 message GetLoginItemRequest {
@@ -79,4 +81,13 @@ message GetLoginItemsRequest {
 
 message GetLoginItemsResponse {
   repeated GetLoginItemResponse list_of_items = 1;
+}
+
+message GetItemsByFolderRequest {
+  UUID folder_id = 1;
+  UUID user_id = 2;
+}
+
+message GetItemsByFolderResponse {
+   GetItemsResponse items  = 1;
 }
