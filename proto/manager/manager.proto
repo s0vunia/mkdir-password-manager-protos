@@ -18,6 +18,7 @@ service Manager {
   rpc GetLoginItem (GetLoginItemRequest) returns (GetLoginItemResponse);
   rpc GetLoginItems (GetLoginItemsRequest) returns (GetLoginItemsResponse);
   rpc GetItemsByFolder (GetItemsByFolderRequest) returns (GetItemsByFolderRequest);
+  rpc DeleteLoginItem (DeleteLoginItemRequest) returns (DeleteLoginItemResponse);
 }
 
 
@@ -91,4 +92,12 @@ message GetItemsByFolderRequest {
 
 message GetItemsByFolderResponse {
    GetItemsResponse items  = 1;
+}
+
+message DeleteLoginItemRequest {
+  UUID user_id = 1;
+  UUID item_id = 2;
+}
+
+message DeleteLoginItemResponse {
 }
